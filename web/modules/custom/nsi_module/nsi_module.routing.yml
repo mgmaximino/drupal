@@ -1,0 +1,7 @@
+nsi_module.degree:
+  path: '/degree/{degree}'
+  defaults:
+    _controller: '\Drupal\nsi_module\Controller\NsiModuleController::getDegreeCardinalDirection'
+    _title: 'Cardinal direction'
+  requirements:
+    _permission: 'access content'

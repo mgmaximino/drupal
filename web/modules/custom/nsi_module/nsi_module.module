@@ -1,0 +1,100 @@
+<?php
+
+use Drupal\Core\Serialization\Json;
+
+/**
+ * Implements hook_help().
+ */
+function nsi_module_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.nsi_module':
+      return '<p>' . t('Help text goes here.') . '</p>';
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function nsi_module_theme($existing, $type, $theme, $path) {
+  return [
+    'nsi_module_cardinal_direction' => [
+      'variables' => [
+        'degree' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Returns the cardinal direction based on the degree value.
+ *
+ * @param float $degree
+ *   The degree value.
+ *
+ * @return string
+ *   The cardinal direction.
+ */
+function nsi_module_get_cardinal_direction($degree) {
+  $cardinal_directions = [
+    'N' => [348.75, 11.25],
+    'NNE' => [11.25, 33.75],
+    'NE' => [33.75, 56.25],
+    'ENE' => [56.25, 78.75],
+    'E' => [78.75, 101.25],
+    'ESE' => [101.25, 123.75],
+    'SE' => [123.75, 146.25],
+    'SSE' => [146.25, 168.75],
+    'S' => [168.75, 191.25],
+    'SSW' => [191.25, 213.75],
+    'SW' => [213.75, 236.25],
+    'WSW' => [236.25, 258.75],
+    'W' => [258.75, 281.25],
+    'WNW' => [281.25, 303.75],
+    'NW' => [303.75, 326.25],
+    'NNW' => [326.25, 348.75],
+  ];
+
+  foreach ($cardinal_directions as $direction => $range) {
+    if ($degree >= $range[0] && $degree < $range[1]) {
+      return $direction;
+    }
+  }
+
+  return 'N';
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function nsi_module_field_formatter_info() {
+  return [
+    'nsi_module_cardinal_direction' => [
+      'label' => t('Cardinal direction'),
+      'field types' => ['nsi_module_degree'],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function nsi_module_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = [];
+
+  switch ($display['type']) {
+    case 'nsi_module_cardinal_direction':
+      foreach ($items as $delta => $item) {
+        $degree = $item->value;
+        $cardinal_direction = nsi_module_get_cardinal_direction($degree);
+        $element[$delta] = [
+          '#theme' => 'nsi_module_cardinal_direction',
+          '#degree' => $degree,
+          '#cardinal_direction' => $cardinal_direction,
+        ];
+      }
+      break;
+  }
+
+  return $element;
+}

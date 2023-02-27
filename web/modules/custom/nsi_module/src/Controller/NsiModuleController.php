@@ -1,0 +1,54 @@
+<?php
+
+namespace Drupal\nsi_module\Controller;
+
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+/**
+ * Controller for the nsi_module.degree route.
+ */
+class NsiModuleController extends ControllerBase {
+
+  /**
+   * Returns the cardinal direction based on the degree value.
+   *
+   * @param float $degree
+   *   The degree value.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response containing the cardinal direction.
+   */
+  public function getDegreeCardinalDirection($degree) {
+    $cardinal_directions = [
+      'N' => [348.75, 11.25],
+      'NNE' => [11.25, 33.75],
+      'NE' => [33.75, 56.25],
+      'ENE' => [56.25, 78.75],
+      'E' => [78.75, 101.25],
+      'ESE' => [101.25, 123.75],
+      'SE' => [123.75, 146.25],
+      'SSE' => [146.25, 168.75],
+      'S' => [168.75, 191.25],
+      'SSW' => [191.25, 213.75],
+      'SW' => [213.75, 236.25],
+      'WSW' => [236.25, 258.75],
+      'W' => [258.75, 281.25],
+      'WNW' => [281.25, 303.75],
+      'NW' => [303.75, 326.25],
+      'NNW' => [326.25, 348.75],
+    ];
+
+    $cardinal_direction = 'N';
+
+    foreach ($cardinal_directions as $direction => $range) {
+      if ($degree >= $range[0] && $degree < $range[1]) {
+        $cardinal_direction = $direction;
+        break;
+      }
+    }
+
+    return new JsonResponse(['cardinal_direction' => $cardinal_direction], 200, ['Content-Type' => 'application/json']);
+}
+
+}

@@ -1,0 +1,5 @@
+# Schema for the configuration files of the nsi_theme theme.
+
+nsi_theme.settings:
+  type: theme_settings
+  label: 'nsi_theme settings'

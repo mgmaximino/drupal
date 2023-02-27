@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - nsi_module
+id: nsi_module_degree
+field_name: nsi_degree
+entity_type: node
+type: float
+settings:
+  min: -360
+  max: 360
+  prefix_suffix: true
+module: nsi_module
+third_party_settings: {  }
+cardinality: 1

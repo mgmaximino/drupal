@@ -1,0 +1,19 @@
+name: NSI Module
+type: module
+description: Custom module for NSI.
+package: Custom
+core: 8.x
+core_version_requirement: ^8.8 || ^10 
+field.formatter.nsi_module_cardinal_direction:
+  label: 'Cardinal Direction Formatter'
+  description: 'Display the cardinal direction based on the degree value.'
+  id: nsi_module_cardinal_direction
+  field_types:
+    - decimal
+  settings:
+    # Add your settings here, if any.
+  module: nsi_module
+  default_formatter: nsi_module_cardinal_direction
+  class: Drupal\nsi_module\Plugin\Field\FieldFormatter\CardinalDirectionFormatter
+  dependencies:
+    - module: nsi_module
