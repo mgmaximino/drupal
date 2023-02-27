@@ -9,9 +9,7 @@
 -j'ai du modifier également le proxy.js qui se trouve dans le theme/custom/nsi_theme/config afin de mettre la bonne url, dans ce cas ci : const proxy = 'http://localhost:80';
 
 -le .htaccess a du être modifié comme ceci :
- # Various rewrite rules.
-<IfModule mod_rewrite.c>
   RewriteEngine on
-  RewriteBase /php/recommended-project/web/
+  RewriteBase /php/recommended-project/web/ (c'est simplement ce qui se trouve apres le localhost)
   
 -encore erreur avec la 404 ainsi qu'avec le formatter qui n'affiche pas mon CardinalDirectionFormatter
